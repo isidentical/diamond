@@ -1,6 +1,8 @@
-# Diffusion for World Modeling: Visual Details Matter in Atari
+# Diffusion for World Modeling: Visual Details Matter in Atari (NeurIPS 2024 Spotlight)
 
-This branch contains the code to play (and train) our world model of *Counter-Strike: Global Offensive* (CS:GO). 
+This branch contains the code to play (and train) our world model of *Counter-Strike: Global Offensive* (CS:GO).
+
+[[Project Page]](https://diamond-wm.github.io) &nbsp; [[Paper]](https://arxiv.org/abs/2405.12399)
 
 ## Installation
 ```bash
@@ -12,6 +14,9 @@ conda activate diamond
 pip install -r requirements.txt
 python src/play.py
 ```
+> Note on Apple Silicon you must enable CPU fallback for MPS backend with
+> `PYTORCH_ENABLE_MPS_FALLBACK=1 python src/play.py`
+
 The final command will automatically download our trained CSGO diffusion world model from the [HuggingFace Hub 🤗](https://huggingface.co/eloialonso/diamond/tree/main) along with spawn points and human player actions. Note that the model weights require 1.5GB of disk space.
 
 When the download is complete, control actions will be printed in the terminal. Press Enter to start playing.
@@ -24,7 +29,7 @@ If on Apple Silicon, you can use the [MPS backend](https://pytorch.org/docs/stab
 ```bash
 PYTORCH_ENABLE_MPS_FALLBACK=1 python src/play.py
 ```
-If you only have CPU or you would like the world model to run faster, you can change the [trainer](config/trainer.yaml#L5) file to use the [fast](config/world_model_env/fast.yaml) config with reduced denoising steps to enable faster generation at lower quality.
+If you only have CPU or you would like the world model to run faster, you can change the [trainer](config/trainer.yaml#L5) file to use the [fast](config/world_model_env/fast.yaml) config (instead of the [default](config/world_model_env/default.yaml)) with reduced denoising steps to enable faster generation at lower quality.
 
 To adjust the sampling parameters yourself (number of denoising steps, stochasticity, order, etc) of the trained diffusion world model, for instance to trade off sampling speed and quality, edit the file `config/world_model_env/default.yaml`.
 
